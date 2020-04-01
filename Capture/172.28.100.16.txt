@@ -1,0 +1,314 @@
+Building configuration...
+
+Current configuration : 7290 bytes
+!
+! No configuration change since last restart
+!
+version 12.2
+no service pad
+service timestamps debug datetime localtime show-timezone
+service timestamps log datetime localtime show-timezone
+service password-encryption
+!
+hostname JKT-ACCSW-204
+!
+boot-start-marker
+boot-end-marker
+!
+logging buffered 50000
+enable secret 5 $1$O7e7$ZS4cpXd/Uq0F1U1ExvEFE/
+!
+username nci privilege 15 secret 5 $1$ArS0$iPr37hsVQyX0MNm6VxXW00
+username admin privilege 15 secret 5 $1$SboN$q4Bk0dF5O7ym0ldv/XdVR0
+no aaa new-model
+clock timezone WIB 7
+system mtu routing 1500
+vtp mode transparent
+ip subnet-zero
+!
+!
+no ip domain-lookup
+!
+!
+crypto pki trustpoint TP-self-signed-1966265600
+ enrollment selfsigned
+ subject-name cn=IOS-Self-Signed-Certificate-1966265600
+ revocation-check none
+ rsakeypair TP-self-signed-1966265600
+!
+!
+crypto pki certificate chain TP-self-signed-1966265600
+ certificate self-signed 01
+  30820246 308201AF A0030201 02020101 300D0609 2A864886 F70D0101 04050030 
+  31312F30 2D060355 04031326 494F532D 53656C66 2D536967 6E65642D 43657274 
+  69666963 6174652D 31393636 32363536 3030301E 170D3933 30333031 30303031 
+  30365A17 0D323030 31303130 30303030 305A3031 312F302D 06035504 03132649 
+  4F532D53 656C662D 5369676E 65642D43 65727469 66696361 74652D31 39363632 
+  36353630 3030819F 300D0609 2A864886 F70D0101 01050003 818D0030 81890281 
+  8100C67A A392038A 3B007A90 077104F1 EC22618C AED43237 3610B732 3451D60D 
+  771ED79B A8B4FC14 B904B2E5 8E3754BE 8513C30C 089DAC6F 26F170B6 42F86A4F 
+  595D8669 9AC315D0 772EBCB2 A70A2470 094ECDD6 50E2AE55 5798AA08 840E3591 
+  0E487688 A7643A0C D402BF14 66ADD2EE AE74B34E A4C55EFA B8D9DDD6 D7CB0DB1 
+  6F850203 010001A3 6E306C30 0F060355 1D130101 FF040530 030101FF 30190603 
+  551D1104 12301082 0E4A4B54 2D414343 53572D32 30342E30 1F060355 1D230418 
+  30168014 E77F1912 24FBF71F E4A1F1C4 08FAEE4C C169351B 301D0603 551D0E04 
+  160414E7 7F191224 FBF71FE4 A1F1C408 FAEE4CC1 69351B30 0D06092A 864886F7 
+  0D010104 05000381 8100BE2B 0E44EDFE 220C3454 740C5651 47CD14A2 FEBB5E0B 
+  CCF9CF48 EB001392 1F514EC5 3C7DD4BD CE140DED AF1FFC0B AA03948A 45BD2AAE 
+  E2BE4A7F 8CD747B4 C50B930E 6237F150 75586291 6CF709EF 35E92F1F 2ACA2982 
+  F05EE445 0C434988 68E7D6CE C1192BA0 7FA5ED02 9B6D2BF6 75C3FDBF 12E384B9 
+  04CE57E0 530C0C19 DD0A
+  quit
+!
+!
+!
+!
+!
+archive
+ path tftp://172.22.200.60/
+ write-memory
+ time-period 1440
+!
+spanning-tree mode rapid-pvst
+spanning-tree portfast default
+spanning-tree portfast bpduguard default
+spanning-tree extend system-id
+!
+vlan internal allocation policy ascending
+!
+vlan 20
+ name VLAN_LT_2
+!
+vlan 30
+ name VLAN_LT_3
+!
+vlan 50
+ name VLAN_LT_5
+!
+vlan 60
+ name VLAN_VOICE
+!
+vlan 70
+ name VLAN_WIRELESS
+!
+vlan 80
+ name VLAN_BORNEO
+!
+vlan 100
+ name VLAN_MANAGEMENT
+!
+vlan 110
+ name VLAN_SERVER
+!
+vlan 120
+ name VLAN_SERVER_2
+!
+vlan 130
+ name VLAN_SERVER_3
+!
+!
+!
+interface Port-channel1
+ description ** Link to Distri **
+ switchport mode trunk
+!
+interface FastEthernet0/1
+ switchport access vlan 50
+ switchport mode access
+ switchport voice vlan 60
+ spanning-tree portfast
+!
+interface FastEthernet0/2
+ switchport access vlan 20
+ switchport mode access
+ switchport voice vlan 60
+ spanning-tree portfast
+!
+interface FastEthernet0/3
+ switchport access vlan 50
+ switchport mode access
+ switchport voice vlan 60
+ spanning-tree portfast
+!
+interface FastEthernet0/4
+ switchport access vlan 50
+ switchport mode access
+ switchport voice vlan 60
+ spanning-tree portfast
+!
+interface FastEthernet0/5
+ switchport access vlan 20
+ switchport mode access
+ switchport voice vlan 60
+ spanning-tree portfast
+!
+interface FastEthernet0/6
+ switchport access vlan 20
+ switchport mode access
+ switchport voice vlan 60
+ spanning-tree portfast
+!
+interface FastEthernet0/7
+ switchport access vlan 20
+ switchport mode access
+ switchport voice vlan 60
+ spanning-tree portfast
+!
+interface FastEthernet0/8
+ switchport access vlan 20
+ switchport mode access
+ switchport voice vlan 60
+ spanning-tree portfast
+!
+interface FastEthernet0/9
+ switchport access vlan 20
+ switchport mode access
+ switchport voice vlan 60
+ spanning-tree portfast
+!
+interface FastEthernet0/10
+ switchport access vlan 20
+ switchport mode access
+ switchport voice vlan 60
+ spanning-tree portfast
+!
+interface FastEthernet0/11
+ switchport access vlan 20
+ switchport mode access
+ switchport voice vlan 60
+ spanning-tree portfast
+!
+interface FastEthernet0/12
+ switchport access vlan 20
+ switchport mode access
+ switchport voice vlan 60
+ spanning-tree portfast
+!
+interface FastEthernet0/13
+ switchport access vlan 20
+ switchport mode access
+ switchport voice vlan 60
+ spanning-tree portfast
+!
+interface FastEthernet0/14
+ switchport access vlan 20
+ switchport mode access
+ switchport voice vlan 60
+ spanning-tree portfast
+!
+interface FastEthernet0/15
+ switchport access vlan 20
+ switchport mode access
+ switchport voice vlan 60
+ spanning-tree portfast
+!
+interface FastEthernet0/16
+ switchport access vlan 20
+ switchport mode access
+ switchport voice vlan 60
+ spanning-tree portfast
+!
+interface FastEthernet0/17
+ switchport access vlan 20
+ switchport mode access
+ switchport voice vlan 60
+ spanning-tree portfast
+!
+interface FastEthernet0/18
+ switchport access vlan 20
+ switchport mode access
+ switchport voice vlan 60
+ spanning-tree portfast
+!
+interface FastEthernet0/19
+ description **To AP_Lt2_1**
+ switchport trunk native vlan 100
+ switchport mode trunk
+ spanning-tree portfast
+!
+interface FastEthernet0/20
+ switchport access vlan 20
+ switchport mode access
+ switchport voice vlan 60
+ spanning-tree portfast
+!
+interface FastEthernet0/21
+ switchport access vlan 20
+ switchport mode access
+ switchport voice vlan 60
+ spanning-tree portfast
+!
+interface FastEthernet0/22
+ switchport access vlan 20
+ switchport mode access
+ switchport voice vlan 60
+ spanning-tree portfast
+!
+interface FastEthernet0/23
+ switchport access vlan 20
+ switchport mode access
+ switchport voice vlan 60
+ spanning-tree portfast
+!
+interface FastEthernet0/24
+ description **To AP_Lt2_2**
+ switchport trunk native vlan 100
+ switchport mode trunk
+ spanning-tree portfast
+!
+interface GigabitEthernet0/1
+ description ** Link to Distri **
+ switchport mode trunk
+ media-type rj45
+ channel-group 1 mode on
+!
+interface GigabitEthernet0/2
+ description ** Link to Distri **
+ switchport mode trunk
+ media-type rj45
+ channel-group 1 mode on
+!
+interface Vlan1
+ no ip address
+ no ip route-cache
+ shutdown
+!
+interface Vlan100
+ description VLAN_MANAGEMENT
+ ip address 172.28.100.16 255.255.255.0
+ no ip route-cache
+!
+ip default-gateway 172.28.100.75
+ip http server
+ip http secure-server
+snmp-server community b4npusnmp RO
+!
+control-plane
+!
+banner motd ^C
+****************************************************************
+Do not install hardware or make configuration changes except
+as explicitly authorized by ITMG.
+Unauthorized access to any configuration or data on this system
+is monitored at any time for operational purpose.
+If you are not authorized user, PLEASE LOG OUT IMMEDIATELY.
+This console is intended to be used only for
+Device maintenance and operation
+****************************************************************
+
+^C
+!
+line con 0
+ exec-timeout 5 0
+ logging synchronous
+ login local
+line vty 0 4
+ exec-timeout 5 0
+ logging synchronous
+ login local
+line vty 5 15
+ login
+!
+ntp clock-period 36029587
+ntp server 172.22.200.45
+end
